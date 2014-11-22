@@ -29,9 +29,10 @@ float batnow = 0, batfull = 0;
 int arg_i = 0, fontsize = 10, mib = 0, showswap = 1;
 char memind[2] = "m", swapind[2] = "m", batname[6] = "", longpath[PATH_MAX] = "",
 	batmsg[10] = "";
-FILE *meminfo, *cpuinfo, *batinfo;
 
 void batcheckup() {
+
+	FILE *batinfo;
 
 	sprintf(longpath, "/sys/class/power_supply/%s/charge_now", batname);
 	if ((batinfo = fopen(longpath, "r")) == NULL) {
@@ -53,6 +54,8 @@ void batcheckup() {
 }
 
 void checkup() {
+
+	FILE *meminfo, *cpuinfo;
 
 	if ((meminfo = fopen("/proc/meminfo", "r")) == NULL) {
 		fprintf(stderr, "Error opening meminfo");

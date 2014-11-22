@@ -21,7 +21,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char version[] = "1.8.1";
+const char version[] = "1.9";
 
 float timeout = 1.5, mem = 0, swap = 0, cpu = 0, used = 0, oldused = 0,
 	cputotal = 0, oldcputotal = 0;
@@ -163,7 +163,7 @@ void tick(void *v) {
 int parser(int argc, char **argv, int &z) {
 	if (strcmp(argv[z], "-h") == 0) {
 		printf("Watcher %s\n"
-		       "(C) Curaga 2009\n"
+		       "(C) Curaga\n"
 		       "Fixes from softwaregurl\n\n"
 		       "Switches: \n"
 		       "\t-bg <color> background color \n"

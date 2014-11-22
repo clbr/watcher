@@ -21,16 +21,16 @@
 #include <string.h>
 #include <stdlib.h>
 
-const char version[] = "1.9";
+static const char version[] = "1.9";
 
-float timeout = 1.5, mem = 0, swap = 0, cpu = 0, used = 0, oldused = 0,
+static float timeout = 1.5, mem = 0, swap = 0, cpu = 0, used = 0, oldused = 0,
 	cputotal = 0, oldcputotal = 0;
-float batnow = 0, batfull = 0;
-int arg_i = 0, fontsize = 10, mib = 0, showswap = 1;
-char memind[2] = "m", swapind[2] = "m", batname[6] = "", longpath[PATH_MAX] = "",
+static float batnow = 0, batfull = 0;
+static int arg_i = 0, fontsize = 10, mib = 0, showswap = 1;
+static char memind[2] = "m", swapind[2] = "m", batname[6] = "", longpath[PATH_MAX] = "",
 	batmsg[10] = "";
 
-void batcheckup() {
+static void batcheckup() {
 
 	FILE *batinfo;
 
@@ -53,7 +53,7 @@ void batcheckup() {
 	sprintf(batmsg, " %.1f%%B", (float)(batnow / batfull) * 100);
 }
 
-void checkup() {
+static void checkup() {
 
 	FILE *meminfo, *cpuinfo;
 
@@ -147,7 +147,7 @@ void checkup() {
 	}
 }
 
-void tick(void *v) {
+static void tick(void *v) {
 	checkup();
 	if (batname[0] != '\0')
 		batcheckup();
@@ -171,7 +171,7 @@ void tick(void *v) {
 	Fl::repeat_timeout(timeout, tick, box);
 }
 
-int parser(int argc, char **argv, int &z) {
+static int parser(int argc, char **argv, int &z) {
 	if (strcmp(argv[z], "-h") == 0) {
 		printf("Watcher %s\n"
 		       "(C) Curaga\n"

@@ -65,26 +65,35 @@ void checkup() {
 
 	unsigned long memtotal, memfree, buffers, cache, swaptotal, swapfree;
 	unsigned long user, nice, sys, idle, iowait, irq, softirq, virt, virt2;
-	char buf[60], buf2[190];
+	char buf[60] = "", buf2[190];
 	char *p;
 	int i;
 
-	fgets(buf, 60, meminfo); strtok(buf, " "); p = strtok(NULL, " ");
-	memtotal = strtol(p, NULL, 10);
-	fgets(buf, 60, meminfo); strtok(buf, " "); p = strtok(NULL, " ");
-	memfree = strtol(p, NULL, 10);
-	fgets(buf, 60, meminfo); strtok(buf, " "); p = strtok(NULL, " ");
-	buffers = strtol(p, NULL, 10);
-	fgets(buf, 60, meminfo); strtok(buf, " "); p = strtok(NULL, " ");
-	cache = strtol(p, NULL, 10);
-	for (i = 1; i < 35; i++) {
+	while (!strstr(buf, "MemTotal:"))
 		fgets(buf, 60, meminfo);
-		p = strtok(buf, " ");
-		if (strcmp("SwapTotal:", p) == 0)
-			break;
-	}
-	p = strtok(NULL, " ");
+	strtok(buf, " "); p = strtok(NULL, " ");
+	memtotal = strtol(p, NULL, 10);
+
+	while (!strstr(buf, "MemFree:"))
+		fgets(buf, 60, meminfo);
+	strtok(buf, " "); p = strtok(NULL, " ");
+	memfree = strtol(p, NULL, 10);
+
+	while (!strstr(buf, "Buffers:"))
+		fgets(buf, 60, meminfo);
+	strtok(buf, " "); p = strtok(NULL, " ");
+	buffers = strtol(p, NULL, 10);
+
+	while (!strstr(buf, "Cached:"))
+		fgets(buf, 60, meminfo);
+	strtok(buf, " "); p = strtok(NULL, " ");
+	cache = strtol(p, NULL, 10);
+
+	while (!strstr(buf, "SwapTotal:"))
+		fgets(buf, 60, meminfo);
+	strtok(buf, " "); p = strtok(NULL, " ");
 	swaptotal = strtol(p, NULL, 10);
+
 	fgets(buf, 60, meminfo); strtok(buf, " "); p = strtok(NULL, " ");
 	swapfree = strtol(p, NULL, 10);
 	fclose(meminfo);

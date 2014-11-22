@@ -67,7 +67,6 @@ void checkup() {
 	unsigned long user, nice, sys, idle, iowait, irq, softirq, virt, virt2;
 	char buf[60] = "", buf2[190];
 	char *p;
-	int i;
 
 	while (!strstr(buf, "MemTotal:"))
 		fgets(buf, 60, meminfo);

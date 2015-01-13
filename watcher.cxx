@@ -14,7 +14,7 @@
 // Gigabytes for swap and mem
 
 #include <FL/Fl.H>
-#include <FL/Fl_Window.H>
+#include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/filename.H>
 #include <stdio.h>
@@ -239,7 +239,7 @@ int main(int argc, char **argv) {
 	if (batname[0] != '\0' && showswap)
 		w = 164;
 
-	Fl_Window *window = new Fl_Window(w, 18);
+	Fl_Double_Window *window = new Fl_Double_Window(w, 18);
 	Fl_Box *box = new Fl_Box(FL_NO_BOX, 0, 0, w, 18, "Starting...");
 	box->labelsize(fontsize);
 	window->border(0);

@@ -34,18 +34,30 @@ static void batcheckup() {
 
 	FILE *batinfo;
 
-	sprintf(longpath, "/sys/class/power_supply/%s/charge_now", batname);
-	if ((batinfo = fopen(longpath, "r")) == NULL) {
+	sprintf(longpath, "/sys/class/power_supply/%s/energy_now", batname);
+	if ((batinfo = fopen(longpath, "r")) == NULL)
+	{
 		fprintf(stderr, "Error opening batinfo %s\n", longpath);
-		exit(1);
+		sprintf(longpath, "/sys/class/power_supply/%s/charge_now", batname);
+		if ((batinfo = fopen(longpath, "r")) == NULL)
+		{
+			fprintf(stderr, "Error opening batinfo %s\n", longpath);
+			exit(1);
+		}
 	}
 	fscanf(batinfo, "%f", &batnow);
 	fclose(batinfo);
 
-	sprintf(longpath, "/sys/class/power_supply/%s/charge_full", batname);
-	if ((batinfo = fopen(longpath, "r")) == NULL) {
+	sprintf(longpath, "/sys/class/power_supply/%s/energy_full", batname);
+	if ((batinfo = fopen(longpath, "r")) == NULL)
+	{
 		fprintf(stderr, "Error opening batinfo %s\n", longpath);
-		exit(1);
+		sprintf(longpath, "/sys/class/power_supply/%s/charge_full", batname);
+		if ((batinfo = fopen(longpath, "r")) == NULL)
+		{
+			fprintf(stderr, "Error opening batinfo %s\n", longpath);
+			exit(1);
+		}
 	}
 	fscanf(batinfo, "%f", &batfull);
 	fclose(batinfo);

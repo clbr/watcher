@@ -7,6 +7,15 @@
 // wmbluemem :)
 // Thank You Mihai Drãghicioiu
 
+// Jan 30, 2019 v1.10.1 by Rich
+// Removed 2 error messages from batcheckup() because they were not errors yet.
+
+// Jan 29, 2019 v1.10 by Rich
+// Compiled in the energy patch that was added on Sep 1, 2017
+
+// Nov 22, 2014 v1.9
+// Rebuilt with FLTK 1.3
+
 // v1.8: update battery support for linux 3.0
 
 // Changes from Softwaregurl:
@@ -21,7 +30,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static const char version[] = "1.9";
+static const char version[] = "1.10.1";
 
 static float timeout = 1.5, mem = 0, swap = 0, cpu = 0, used = 0, oldused = 0,
 	cputotal = 0, oldcputotal = 0;
@@ -37,7 +46,6 @@ static void batcheckup() {
 	sprintf(longpath, "/sys/class/power_supply/%s/energy_now", batname);
 	if ((batinfo = fopen(longpath, "r")) == NULL)
 	{
-		fprintf(stderr, "Error opening batinfo %s\n", longpath);
 		sprintf(longpath, "/sys/class/power_supply/%s/charge_now", batname);
 		if ((batinfo = fopen(longpath, "r")) == NULL)
 		{
@@ -51,7 +59,6 @@ static void batcheckup() {
 	sprintf(longpath, "/sys/class/power_supply/%s/energy_full", batname);
 	if ((batinfo = fopen(longpath, "r")) == NULL)
 	{
-		fprintf(stderr, "Error opening batinfo %s\n", longpath);
 		sprintf(longpath, "/sys/class/power_supply/%s/charge_full", batname);
 		if ((batinfo = fopen(longpath, "r")) == NULL)
 		{
